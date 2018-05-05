@@ -46,7 +46,7 @@ rancher:
         - "9000:9000"
       environment:
         - TZ=${TZ}
-        - VIRTUAL_PORT=8080
+        - VIRTUAL_PORT=9000
         - VIRTUAL_HOST=movies2.joshly.com
         - LETSENCRYPT_TEST=false
         - LETSENCRYPT_HOST=movies2.joshly.com
