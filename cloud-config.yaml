@@ -22,12 +22,32 @@ rancher:
       volumes:
       - '/home/docker/nginx-proxy/ssl:/etc/nginx/certs:rw'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    rancher-server:
-      image: rancher/server:latest
+    plex-stats:
+      image: linuxserver/tautulli:latest
       restart: unless-stopped
       environment:
       - VIRTUAL_PORT=8080
-      - VIRTUAL_HOST=rancher.joshly.com
+      - VIRTUAL_HOST=stats.joshly.com
       - LETSENCRYPT_TEST=false
-      - LETSENCRYPT_HOST=rancher.joshly.com
+      - LETSENCRYPT_HOST=stats.joshly.com
       - LETSENCRYPT_EMAIL=jbartels@gmail.com
+      volumes:
+      - ${USERDIR}/docker/tautulli:/config
+      - /var/log/plexpy:/logs:ro
+      - ${USERDIR}/docker/certs:/certs
+    portainer:
+      image: portainer/portainer
+      restart: unless-stopped
+      command: --templates http://templates/templates.json
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ${USERDIR}/docker/portainer/data:/data
+      ports:
+        - "9000:9000"
+      environment:
+        - TZ=${TZ}
+        - VIRTUAL_PORT=8080
+        - VIRTUAL_HOST=movies2.joshly.com
+        - LETSENCRYPT_TEST=false
+        - LETSENCRYPT_HOST=movies2.joshly.com
+        - LETSENCRYPT_EMAIL=jbartels@gmail.com
