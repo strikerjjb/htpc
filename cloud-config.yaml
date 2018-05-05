@@ -32,16 +32,16 @@ rancher:
       - LETSENCRYPT_HOST=stats.joshly.com
       - LETSENCRYPT_EMAIL=jbartels@gmail.com
       volumes:
-      - 'home/docker/tautulli:/config'
+      - '/home/docker/tautulli:/config'
       - '/var/log/plexpy:/logs:ro'
-      - 'home/docker/certs:/certs'
+      - '/home/docker/certs:/certs'
     portainer:
       image: portainer/portainer
       restart: unless-stopped
       command: --templates http://templates/templates.json
       volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
-        - 'home/docker/portainer/data:/data'
+        - '/home/docker/portainer/data:/data'
       ports:
         - "9000:9000"
       environment:
