@@ -53,7 +53,7 @@ rancher:
       environment:
         - TZ=America/New_York
         - VIRTUAL_PORT=9000
-        - VIRTUAL_HOST=movies2.joshly.com
+        - VIRTUAL_HOST=portainer.joshly.com
         - LETSENCRYPT_TEST=false
-        - LETSENCRYPT_HOST=movies2.joshly.com
+        - LETSENCRYPT_HOST=portainer.joshly.com
         - LETSENCRYPT_EMAIL=jbartels@gmail.com
