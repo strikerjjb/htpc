@@ -32,20 +32,20 @@ rancher:
       - LETSENCRYPT_HOST=stats.joshly.com
       - LETSENCRYPT_EMAIL=jbartels@gmail.com
       volumes:
-      - ${USERDIR}/docker/tautulli:/config
-      - /var/log/plexpy:/logs:ro
-      - ${USERDIR}/docker/certs:/certs
+      - 'home/docker/tautulli:/config'
+      - '/var/log/plexpy:/logs:ro'
+      - 'home/docker/certs:/certs'
     portainer:
       image: portainer/portainer
       restart: unless-stopped
       command: --templates http://templates/templates.json
       volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - ${USERDIR}/docker/portainer/data:/data
+        - '/var/run/docker.sock:/var/run/docker.sock'
+        - 'home/docker/portainer/data:/data'
       ports:
         - "9000:9000"
       environment:
-        - TZ=${TZ}
+        - TZ=America/New_York
         - VIRTUAL_PORT=9000
         - VIRTUAL_HOST=movies2.joshly.com
         - LETSENCRYPT_TEST=false
