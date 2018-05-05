@@ -4,7 +4,7 @@ ssh_authorized_keys:
 rancher:
   services:
     nginx-proxy:
-      image: jwilder/nginx-proxy:0.4.0
+      image: jwilder/nginx-proxy:latest
       restart: unless-stopped
       ports:
       - "80:80"
@@ -15,10 +15,19 @@ rancher:
       - '/usr/share/nginx/html'
       - '/var/run/docker.sock:/tmp/docker.sock:ro'
     letsencrypt-nginx-proxy-companion:
-      image: jrcs/letsencrypt-nginx-proxy-companion:v1.3
+      image: jrcs/letsencrypt-nginx-proxy-companion:latest
       restart: unless-stopped
       volumes_from:
       - nginx-proxy
       volumes:
       - '/home/docker/nginx-proxy/ssl:/etc/nginx/certs:rw'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    rancher-server:
+      image: rancher/server:latest
+      restart: unless-stopped
+      environment:
+      - VIRTUAL_PORT=8080
+      - VIRTUAL_HOST=rancher.joshly.com
+      - LETSENCRYPT_TEST=false
+      - LETSENCRYPT_HOST=rancher.joshly.com
+      - LETSENCRYPT_EMAIL=jbartels@gmail.com
